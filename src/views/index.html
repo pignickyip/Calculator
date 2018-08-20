@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Claculator Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <% for(var i=0; i<JSdata.length; i++) {%>
+        <script type="text/javascript" charset="utf8" src="<%= JSdata[i] %>"></script>
+        <% } %>
+            <% for(var i=0; i<CSSdata.length; i++) {%>
+                <link rel="stylesheet" href="<%= CSSdata[i] %>">
+                <% } %>
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="calculator">
+            <input id="screen" type="text" v-model="msg" @change="msgChangeHandler" />
+            <div class="buttons">
+
+                <div v-on:click="parentheses(0)" class="button">(</div>
+                <div v-on:click="machineOperator(0)" class="button machineButton">MC</div>
+                <div v-on:click="machineOperator(1)" class="button machineButton">MS</div>
+                <div v-on:click="machineOperator(2)" class="button machineButton">MR</div>
+                <div v-on:click="machineOperator(3)" class="button machineButton">M&#x2b;</div>
+                <div v-on:click="machineOperator(4)" class="button machineButton">M&#x2212;</div>
+                <div v-on:click="clear" class="button">{{ msg == 0 ? 'AC' : 'C' }}</div>
+                <div v-on:click="inverse" class="button">&#x2213;</div>
+                <div v-on:click="percentage" class="button">%</div>
+                <div v-on:click="operator('/')" class="button">&#xf7;</div>
+
+                <div v-on:click="parentheses(1)" class="button">)</div>
+                <div v-on:click="pow(2,0)" class="button">x<sup>2</sup></div>
+                <div v-on:click="pow(3,0)" class="button">x<sup>3</sup></div>
+                <div v-on:click="pow(0,1)" class="button">x<sup>y</sup></div>
+                <div v-on:click="pow(0,2)" class="button">e<sup>x</sup></div>
+                <div v-on:click="pow(0,3)" class="button">10<sup>x</sup></div>
+                <div v-on:click="input('7')" class="button">7</div>
+                <div v-on:click="input('8')" class="button">8</div>
+                <div v-on:click="input('9')" class="button">9</div>
+                <div v-on:click="operator('*')" class="button">&#xd7;</div>
+
+                <div v-on:click="specialOperator(0)" class="button">1/x</div>
+                <div v-on:click="" class="button">&#x221A;</div>
+                <div v-on:click="" class="button">&#x221B;</div>
+                <div v-on:click="" class="button">x&#x221A;</div>
+                <div v-on:click="specialOperator(1)" class="button">in</div>
+                <div v-on:click="specialOperator(2)" class="button">log10</div>
+                <div v-on:click="input('4')" class="button">4</div>
+                <div v-on:click="input('5')" class="button">5</div>
+                <div v-on:click="input('6')" class="button">6</div>
+                <div v-on:click="operator('-')" class="button">&#x2212;</div>
+
+                <div v-on:click="specialOperator(3)" class="button">x!</div>
+                <div v-on:click="" class="button">sin</div>
+                <div v-on:click="" class="button">cos</div>
+                <div v-on:click="" class="button">tan</div>
+                <div v-on:click="myValueChange(0)" class="button">e</div>
+                <div v-on:click="specialOperator(4)" class="button">EE</div>
+                <div v-on:click="input('1')" class="button">1</div>
+                <div v-on:click="input('2')" class="button">2</div>
+                <div v-on:click="input('3')" class="button">3</div>
+                <div v-on:click="operator('+')" class="button">&#x2b;</div>
+
+                <div v-on:click="specialOperator(5)" class="button">Rad</div>
+                <div v-on:click="" class="button">sinh</div>
+                <div v-on:click="" class="button">cosh</div>
+                <div v-on:click="" class="button">tanh</div>
+                <div v-on:click="myValueChange(1)" class="button">&#x3c0;</div>
+                <div v-on:click="myValueChange(2)" class="button">Rand</div>
+                <div v-on:click="input('0')" class="button specialButton">0</div>
+                <div v-on:click="input('.')" class="button">.</div>
+                <div v-on:click="equal" class="button">=</div>
+            </div>
+        </div>
+    </div>
+</body>
+<% for(var i=0; i<vueJSdata.length; i++) {%>
+    <script type="text/javascript" charset="utf8" src="<%= vueJSdata[i] %>"></script>
+    <% } %>
+
+</html>
