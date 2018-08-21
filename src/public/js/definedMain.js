@@ -1,7 +1,7 @@
 let basicCal = new Vue({
     el: '#calculator',
     data: {
-        value: '',
+        digit: '',
         msg: '0',
         equation: '',
         cal: '',
@@ -14,26 +14,33 @@ let basicCal = new Vue({
                 return false;
             else if (this.msg === '0') {
                 this.msg = num;
-                this.value = num;
+                this.digit = num;
             } else {
-                this.value += num;
-                this.msg += num;
+                this.digit += num;
+                this.msg = this.digit;
             }
         },
         clear: function () {
             if (this.msg === '0')
                 this.equation = '';
             this.msg = '0';
-            this.value = '';
+            this.digit = '';
         },
         operator: function (opt) {
-            this.equation += this.value;
-            this.operatorHanlder(opt, 2)
+            this.equation += this.msg;
+            //            if (this.equation.match(/(^[0-9]*)+$/)) {
+            //                this.equation = this.msg;
+            //            } else {
+            //                this.equation = this.digit;
+            //            }
+
+            if (this.equation)
+                this.operatorHanlder(opt, 2)
         },
         percentage: function () {
             this.equation = '';
             this.msg = (this.msg / 100).toString();
-            this.value = this.msg;
+            this.digit = this.msg;
         },
         inverse: function () {
             if (this.msg == 0)
@@ -43,7 +50,7 @@ let basicCal = new Vue({
                 this.msg = this.msg.substr(1);
             else
                 this.msg = '-' + this.msg;
-            this.value = this.msg;
+            this.digit = this.msg;
         },
         equal: function () {
             if (this.temp && this.tempOper === 1) {
@@ -53,14 +60,26 @@ let basicCal = new Vue({
                     let bastante = Math.pow(this.temp, this.msg);
                     this.equation = '';
                     this.msg = bastante;
-                    this.value = bastante;
+                    this.digit = bastante;
+                    this.cal = '';
+                    this.temp = '';
+                    this.tempOper = 0;
+                }
+            } else if (this.temp && this.tempOper === 2) {
+                if (!this.msg.match(/(^[0-9]*)+$/)) {
+                    console.log('ff')
+                } else {
+                    let bastante = Math.pow(this.temp, (1 / this.msg));
+                    this.equation = '';
+                    this.msg = bastante;
+                    this.digit = bastante;
                     this.cal = '';
                     this.temp = '';
                     this.tempOper = 0;
                 }
             } else if (this.equation === '') {
                 return;
-            } else if (this.cal != '') {
+            } else if (this.cal !== '') {
                 this.equation += this.msg;
                 this.operatorHanlder('', 1);
             } else {
@@ -68,16 +87,19 @@ let basicCal = new Vue({
             }
         },
         parentheses: function (f) {
+            //this.check();
             if (f === 0) {
+                //if (this.equation ) {
                 this.temp = this.equation;
                 this.msg = '';
                 this.equation = '';
+                //}
             } else if (f === 1) {
                 if (this.temp) {
                     if (this.temp.match(/(^[0-9]*)+$/)) {
                         return;
                     } else {
-                        let bastante = this.temp + this.equation
+                        let bastante = this.temp + this.msg
                         this.equation = bastante
                         this.temp = '';
                         //console.log(this.equation)
@@ -102,8 +124,27 @@ let basicCal = new Vue({
                 }
                 this.msg = Math.pow(10, temp)
             }
-            this.value = this.msg;
+            this.digit = this.msg;
             this.cal = '';
+        },
+        sqrt: function (f) {
+            // Square Root
+            let temp = this.msg;
+            if (f === 2) {
+                this.msg = Math.sqrt(temp);
+            } else if (f === 3) {
+                this.msg = Math.cbrt(temp);
+            } else if (f === 4) {
+                this.temp = this.msg;
+                this.tempOper = 2;
+                this.msg = '0';
+            }
+            this.digit = this.msg;
+            this.cal = '';
+            // Cube Root  
+        },
+        trigonometric: function (i, t) {
+            return;
         },
         myValueChange: function (f) {
             if (f === 0) {
@@ -113,7 +154,7 @@ let basicCal = new Vue({
             } else if (f === 2) {
                 this.msg = Math.random().toFixed(10);
             }
-            this.equation = this.msg
+            //this.digit = this.msg;
         },
         specialOperator: function (f) {
             if (f === 0) {
@@ -127,7 +168,7 @@ let basicCal = new Vue({
             } else if (f === 4) { //EE
             } else if (f === 5) { //RAD
             }
-            this.value = this.msg
+            // this.digit = this.msg
         },
         msgChangeHandler: function (e) {
             let temp = this.msg;
@@ -136,12 +177,12 @@ let basicCal = new Vue({
         },
         operatorHanlder: function (calVal, flag) {
             this.msg = eval(this.equation).toString();
-            this.value = '';
+            this.digit = '';
             this.cal = calVal;
             if (flag === 1) {
-                this.equation = this.msg;
+                this.equation = '';
             } else if (flag === 2) {
-                this.equation = this.msg + this.cal
+                this.equation = this.msg + calVal
             }
         },
         factorialFunction: function (num) {
@@ -150,6 +191,11 @@ let basicCal = new Vue({
             } else {
                 return num * this.factorialFunction(num - 1);
             }
+        },
+        check: function () {
+            console.log(this.equation)
+            console.log(this.digit)
+            console.log(this.msg)
         },
         machineOperator: async function (flag) {
             if (flag === 0) {
@@ -167,21 +213,21 @@ let basicCal = new Vue({
                 this.msg = await machineFunction('/machine/result', {
                     username: 'nick'
                 }, flag);
-                this.value = this.msg;
+                this.digit = this.msg;
             } else if (flag === 3) { //M+
                 this.msg = await machineFunction('/machine/operate', {
-                    value: this.msg,
+                    digit: this.msg,
                     operator: 2,
                     username: 'nick'
                 }, flag);
-                this.value = this.msg;
+                this.digit = this.msg;
             } else if (flag === 4) {
                 this.msg = await machineFunction('/machine/operate', {
-                    value: this.msg,
+                    digit: this.msg,
                     operator: 3,
                     username: 'nick'
                 }, flag);
-                this.value = this.msg;
+                this.digit = this.msg;
             }
         }
     }
