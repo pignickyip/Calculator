@@ -48,12 +48,14 @@ UFW, Linux then nothing
 
 ## Source
 
+* [VueJs](https://github.com/vuejs) - Vue.js 
+* [Axios](https://github.com/axios/axios) - Axios
 * [Style](https://vuejsexamples.com/a-ios-style-calculator-with-vue-js/) - Discountry (https://codepen.io/discountry/#)
 
 
 ## Authors
 
-* **Nick** - *Initial work* - [calculator](https://github.com/pignickyip/calculator)
+* **Nick** - *Initial work* - [Calculator](https://github.com/pignickyip/Calculator)
 
 ## License
 
