@@ -69,4 +69,10 @@ body {
     flex-grow: 2;
 }
 
-.specialKey {}
+.active {
+    background-color: grey;
+}
+
+.activeC2 {
+    background-color: hotpink;
+}

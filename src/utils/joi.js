@@ -1,7 +1,7 @@
 (function () {
-    'use strict';
+    "use strict";
 }());
-let Joi = require('joi')
+let Joi = require("joi");
 module.exports = {
     JoiValidation: async (flag, val) => {
         var scheme = schemeSelect(flag);
@@ -9,31 +9,31 @@ module.exports = {
             try {
                 Joi.validate(val, scheme, function (err, value) {
                     if (err === null) {
-                        return resolve('success')
+                        return resolve("success");
                     } else {
-                        return resolve(err.details[0]['message'])
+                        return resolve(err.details[0]["message"] + " - " + value);
                     }
-                })
+                });
             } catch (e) {
-                return reject(e)
+                return reject(e);
             }
-        })
+        });
     }
-}
+};
 
 function schemeSelect(flag) {
     if (flag === 0) {
-        return machineStoreScheme
+        return machineStoreScheme;
     } else if (flag === 1) {
-        return machineOperateScheme
+        return machineOperateScheme;
     }
 }
 let machineStoreScheme = Joi.object().keys({
     data: Joi.string().regex(/[0-9-]$/).required(),
     username: Joi.string().regex(/[A-Za-z0-9]$/).required()
-})
+});
 let machineOperateScheme = Joi.object().keys({
     value: Joi.string().regex(/[0-9-]$/).required(),
-    operator: Joi.number().max(3).min(2).required(),
+    operator: Joi.number().max(4).min(2).required(),
     username: Joi.string().regex(/[A-Za-z0-9]$/).required()
-})
+});

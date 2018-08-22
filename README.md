@@ -19,7 +19,7 @@ database : 'calculator'
 
 ### Installing
 
-recommand use NVM to install NodeJS
+Recommand use NVM to install NodeJS
 
 ```
 Go -> https://github.com/creationix/nvm
@@ -28,23 +28,27 @@ Go -> https://github.com/creationix/nvm
 ## Running the tests
 
 Human debugger - Eyes
-Lol, I will do it.
 
-### Break down into end to end tests
-
-should be like that
+/*
+Lol, I think I will do it.
+And its like that:
 
 ```
 npm test
 ```
+*/
 
 ### And coding style tests
- 
- I may use ESlint
+  
+ESlint used as coding style tests;
+Recomman change ecmaVersion to 2017 for testing async/await
+```
+"parserOptions": {"ecmaVersion": 2017}
+```
 
 ## Deployment
 
-UFW, Linux then nothing
+UFW and Linux system then nothing
 
 ## Source
 
@@ -60,5 +64,3 @@ UFW, Linux then nothing
 ## License
 
 This project is licensed under the ISC License
-
-
