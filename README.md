@@ -4,7 +4,7 @@ Just For Fun :D a Web Calculator with VueJs and NodeJs
 
 ## Getting Started
 
-Install NodeJS and the datbase you like.
+Install NodeJS and the database you like.
 Open Your Browser and Coffee :D
 
 ### Prerequisites
@@ -30,8 +30,7 @@ Go -> https://github.com/creationix/nvm
 Human debugger - Eyes
 
 /*
-Lol, I think I will do it.
-And its like that:
+Lol, I think I will do it and its like that:
 
 ```
 npm test
